@@ -7,21 +7,39 @@ import os
 
 os.system('cls')
 
-print("Variable 1 is 17. This is the data type of variable 1")
-var1= 17
-print(type(var1))
+var1 = (input("give me an integer"))
 
-print("Variable 2 is 1.5. This is the data type of variable 2")
-var2=1.5
-print(type(var2))
+try:
+    var1=int(var1)
+    print(type(var1))
+    check=True
+except ValueError:
+    check=False
+    print("That is not an integer")
 
-print("Variable 3 is sentence: This is a string. This is the data type of variable 3")
-var3=("this is a string")
-print(type(var3))
 
-var4=input("Give me variable 4")
+var2 = (input("give me a float"))
+try:
+    var2=float(var2)
+    print(type(var2))
+    check=True
+except ValueError:
+    check=False
+    print('That is not a float')
 
-var5=input("Give me variable 5")
+var3 = (input("give me a string"))
+try:
+    var3=str(var3)
+    print(type(var3))
+    check=True
+except ValueError:
+    check=False
+    print('That is not a string')
+
+
+var4=input("Give me an integer. This will be variable 4")
+
+var5=input("Give me another integer. This will be variable 5.")
 
 print("This is variable 4 plus variable 5")
 a= (var4+var5)
