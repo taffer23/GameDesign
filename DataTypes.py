@@ -35,4 +35,3 @@ print(num/0)
     #float is a decimal
     #char is a character like a letter
     #string is a piece of code like ("hello")
-
