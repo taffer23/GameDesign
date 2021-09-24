@@ -30,7 +30,7 @@ while('y' in answer):
                 print("You guessed too low!")
             guess=input("Try again! ")
     print(" ")
-    answer=input("Do you want to play again?")
+    answer=input("Do you want to play again? ")
     while('n' in answer):
         break
 print("Thank you for playing", name)
