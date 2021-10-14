@@ -1,14 +1,65 @@
 #Ryan Taffe
 #9/30/21
+import os
 import random
-num=random.randint(2,8)
-print(num)
-print("Welcome to hangman")
-AvailableWords=["Elephant","Bathtub","Pencil","Texas"]
-name= input("What is your name? ")
-answer=input(name + ", would you like to play a game? ")
-while ("y") in answer:
-    word= AvailableWords[3]
+score=0
+
+print("Welcome to Hangman")
+
+HardestWords=["Elephant","Bathtub","Pencil","Texas"]
+IntermediateWords=["Desk", "Wire", "Fast", "Shirt"]
+EasyWords=["Box","Cat","Man","Dad"]
+maxScore=0
+name=input("What is your name? ")
+
+def Menu():
+    print("########################################")
+    print("#        Choose a difficulty           #")
+    print("#              1=Easy                  #")
+    print("#             2=Medium                 #")
+    print("#              3=Hard                  #")
+    print("#            4=Scoreboard              #")
+    print("#              5=Exit                  #")
+    print("########################################")
+    difficulty = input("Enter your choice ")
+    try:
+        difficulty=int(difficulty)
+        check= True
+    except ValueError:
+        check= False
+    if (check):
+        return difficulty
+    else:
+        difficulty=Menu()
+
+
+def selWord(difficulty):
+    if difficulty==3:
+        word=random.choice(HardestWords)
+    elif difficulty==2:
+        word=random.choice(IntermediateWords)
+    elif difficulty==1:
+        word=random.choice(EasyWords)
+    return word
+
+difficulty=Menu()
+   
+if difficulty==4:
+    MyFile=open('score.txt','r')
+    print(MyFile.read)()
+    MyFile.close
+    answer2=input("Are you ready to go back?")
+    difficulty=Menu()
+    #I couldn't figure out how to make this a function...
+if difficulty==5:
+    MyFile=open('score.txt', 'a')
+    MyFile.write(name+ "\t Score: \t"+str(score))
+    MyFile.write(score)
+    MyFile.close
+    os._exit
+    print("Thank you for playing")
+while difficulty <4:
+    word = selWord(difficulty)
     word=word.lower()
     turns=len(word)+2
     check = True
@@ -28,6 +79,23 @@ while ("y") in answer:
         else:
             turns -=1
             print("Sorry, guess again")
-    print("You guessed right! The word was", word)
-    answer=input(name + ", do you want to play again?")
-print(name,", thank you for playing")
+    if turns >0:
+        print("You guessed right! The word was", word)
+        score+=3*len(word)+5*turns
+        print("Score: ", score)
+        if score > maxScore:
+            maxScore=score
+    difficulty=Menu()
+    if difficulty==4:
+        MyFile=open('score.txt','r')
+        print(MyFile.read)()
+        MyFile.close
+        answer2=input("Are you ready to go back?")
+        difficulty=Menu()
+    if difficulty==5:
+        MyFile=open('score.txt', 'a')
+        MyFile.write(name+ "\t Score: \t"+str(score))
+        MyFile.write(score)
+        MyFile.close    
+        os._exit
+        print("Thank you for playing")
