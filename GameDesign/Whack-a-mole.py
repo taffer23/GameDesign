@@ -18,7 +18,7 @@ DISPLAY_OBJECT_COLORS=8
 DISPLAY_SOUNDS_ON_OFF=9
 DISPLAY_WINDOW_SIZE=10
 #BACK?
-
+level1counter = 0
 mole=pygame.image.load('Images/mole.png')
 
 
@@ -45,7 +45,8 @@ BLUE=colors.get('blue')
 COLOR=WHITE
 
 counter=1
-
+molex=0
+moley=0
 WIDTH=800
 HEIGHT=800
 wbox=30
@@ -59,15 +60,22 @@ square=pygame.Rect(x,y, wbox, hbox)
 #Declare FONTS
 TITLE_FONT=pygame.font.SysFont('comicsans', 80)
 MENU_FONT=pygame.font.SysFont('comicsans', 40)
-text=TITLE_FONT.render('message',1,BLACK)
+# text=TITLE_FONT.render(,1,BLACK)
 
 def display_Title(message,ym):
-    pygame.time.delay(100)
+    #pygame.time.delay(100)
     text=TITLE_FONT.render(message,1,BLACK)
     xm=WIDTH/2-text.get_width()/2
     win.blit(text, (xm,ym))
     pygame.display.update()
-    pygame.time.delay(100)
+    #pygame.time.delay(100)
+
+def display_Title_2(mes,xm, ym):
+    #pygame.time.delay(100)
+    text2=TITLE_FONT.render(mes,1,BLACK)
+    win.blit(text2, (xm,ym))
+    pygame.display.update()
+    #pygame.time.delay(100)
 
 def Menu_function(Messages,y):
     
@@ -124,7 +132,13 @@ while run:
                         create_NewWindow("Level 1")
                         win.fill(COLOR)
                         display_Title("Level 1",40)
-                        display_Title("BACK",HEIGHT-100)                 
+                        display_Title("BACK",HEIGHT-100)
+                        display_Title("Score:",HEIGHT-175)
+                        display_Title("Time:", HEIGHT-250)
+                        # display_Title_2(str(level1counter), WIDTH/2+100, HEIGHT-175)
+                        molex= random.randint(50,750)
+                        moley= random.randint(100,400)
+                                       
                         currentDisplay=DISPLAY_LEVEL_1
                     if xp>=70 and xp<x+wbox and yp>350 and yp<375:
                         xp = 0
@@ -133,6 +147,11 @@ while run:
                         win.fill(COLOR)
                         display_Title("Level 2",40)
                         display_Title("BACK",HEIGHT-100)
+                        display_Title("Score:",HEIGHT-175)
+                        display_Title("Time:", HEIGHT-250)
+                        # display_Title_2(str(level1counter), WIDTH/2+100, HEIGHT-175)
+                        molex= random.randint(50,750)
+                        moley= random.randint(100,400)
                         currentDisplay=DISPLAY_LEVEL_2
                     if xp>=x and xp<x+wbox and yp>450  and yp<475:
                         xp = 0
@@ -191,24 +210,37 @@ while run:
                 if currentDisplay==DISPLAY_LEVEL_1:
 
                     bg1 = pygame.image.load('Background.png')
+                    
                     win.blit(bg1, (0,0))
-                    molex= (400)
-                    moley= (200)
-                   # molex= random.randint(0,800)
-                   # moley= random.randint(0,400)
                     win.blit(mole, (molex, moley))
+                    
                     pygame.display.set_caption("Level 1")
                     pygame.display.flip()
-                            
-                    if xp>=molex and xp<50+molex and yp>moley and yp<=moley+25:
-                        molex= random.randint(0,800)
-                        moley= random.randint(0,400)
+ 
+                    if xp>=molex and xp<=50+molex and yp>moley and yp<=moley+50:
+                        win.fill(COLOR)
+                        molex= random.randint(50,750)
+                        moley= random.randint(100,400)
+                        
+                        win.blit(bg1, (0,0))
                         win.blit(mole, (molex, moley))
+                        
+                        level1counter=level1counter+5
+                        display_Title_2(str(level1counter), WIDTH/2+100, HEIGHT-175)
+                        display_Title("BACK",HEIGHT-100)
+                        display_Title("Score:",HEIGHT-175)
+                        display_Title("Time:", HEIGHT-250)
+                        pygame.display.flip()
+                        
+                    
+                    
+                        
                         
 
                     if xp>=WIDTH/2-40 and xp<WIDTH/2+50 and yp>HEIGHT-100 and yp<HEIGHT-50:
                         xp = 0
                         yp = 0
+                        level1counter=0
                         win.fill(COLOR)
                         display_Title("Welcome to Whack a Mole!",40)
                         Menu_function(MainMenuMessages, 150)
@@ -248,16 +280,39 @@ while run:
 
                 #Level 2            
                 if currentDisplay==DISPLAY_LEVEL_2:
-                    bg1 = pygame.image.load('Background.png')
 
-                        
+                    bg1 = pygame.image.load('Background.png')
+                    
                     win.blit(bg1, (0,0))
-                    pygame.display.set_caption("Level 2")
+                    win.blit(mole, (molex, moley))
+                    
+                    pygame.display.set_caption("Level 1")
                     pygame.display.flip()
-                            
+ 
+                    if xp>=molex and xp<=50+molex and yp>moley and yp<=moley+50:
+                        win.fill(COLOR)
+                        molex= random.randint(50,750)
+                        moley= random.randint(100,400)
+                        
+                        win.blit(bg1, (0,0))
+                        win.blit(mole, (molex, moley))
+                        
+                        level1counter=level1counter+1
+                        display_Title_2(str(level1counter), WIDTH/2+100, HEIGHT-175)
+                        display_Title("BACK",HEIGHT-100)
+                        display_Title("Score:",HEIGHT-175)
+                        display_Title("Time:", HEIGHT-250)
+                        pygame.display.flip()
+                        
+                    
+                    
+                        
+                        
+
                     if xp>=WIDTH/2-40 and xp<WIDTH/2+50 and yp>HEIGHT-100 and yp<HEIGHT-50:
                         xp = 0
                         yp = 0
+                        level1counter=0
                         win.fill(COLOR)
                         display_Title("Welcome to Whack a Mole!",40)
                         Menu_function(MainMenuMessages, 150)
